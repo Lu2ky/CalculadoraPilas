@@ -225,7 +225,7 @@ namespace CalculadoraPilaInterfaz
             }
             string numeroTemporal = "";
             int Rtemp = 0;
-
+            boolean neg = false;
 
             for (int i = 0; i < operacion.Length; i++)
             {
@@ -234,11 +234,20 @@ namespace CalculadoraPilaInterfaz
                 {
                     numeroTemporal += cTemp;
                 }
+                else if(cTemp == "-" && ((i == 0) || operadores.Contains(operacion[i-1]))){
+                    neg = true;
+                }
+                
                 else if (operadores.Contains(cTemp))
                 {
                     if (!string.IsNullOrEmpty(numeroTemporal))
                     {
-                        pNum.push(int.Parse(numeroTemporal));
+                        int Ntemp = int.Parse(numeroTemporal);
+                        if(neg){
+                            Ntemp = -Ntemp;
+                        }
+                        neg = false;
+                        pNum.push(Ntemp);
                         numeroTemporal = "";
                     }
 
